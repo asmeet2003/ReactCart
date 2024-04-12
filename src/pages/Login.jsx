@@ -1,8 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../components";
 
 const Login = () => {
+  const navigator = useNavigate()
+  const emailRef = useRef()
+  const passRef = useRef()
+  const passwordChecker = () => {
+    const email = emailRef.current.value;
+    const password = passRef.current.value;
+    if(email === "john@mail.com" && password === "123"){
+      alert("logged in")
+      navigator("/")
+  }
+  else{
+    alert("username/password incorrect")
+  }
+}
   return (
     <>
       <Navbar />
@@ -15,6 +29,7 @@ const Login = () => {
               <div class="my-3">
                 <label for="display-4">Email address</label>
                 <input
+                ref={emailRef}
                   type="email"
                   class="form-control"
                   id="floatingInput"
@@ -24,6 +39,7 @@ const Login = () => {
               <div class="my-3">
                 <label for="floatingPassword display-4">Password</label>
                 <input
+                ref={passRef}
                   type="password"
                   class="form-control"
                   id="floatingPassword"
@@ -34,9 +50,9 @@ const Login = () => {
                 <p>New Here? <Link to="/register" className="text-decoration-underline text-info">Register</Link> </p>
               </div>
               <div className="text-center">
-               <Link to="/"> <button class="my-2 mx-auto btn btn-dark" type="submit">
+               <button class="my-2 mx-auto btn btn-dark" type="submit" onClick={passwordChecker}>
                   Login
-                </button></Link>
+                </button>
               </div>
             </form>
           </div>
